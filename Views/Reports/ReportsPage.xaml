@@ -1,0 +1,114 @@
+<Page x:Class="SupermarketMS.Views.Reports.ReportsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Reports" Background="{StaticResource SurfaceBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <!-- Header + Date Range -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Center">
+                <TextBlock Text="Reports &amp; Statistics" FontSize="22" FontWeight="Bold"
+                           Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Margin="24,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="13"/>
+                    <DatePicker SelectedDate="{Binding From}" Width="130"/>
+                    <TextBlock Text="To:" VerticalAlignment="Center" Margin="10,0,6,0" FontSize="13"/>
+                    <DatePicker SelectedDate="{Binding To}" Width="130"/>
+                    <Button Content="Generate Report" Style="{StaticResource PrimaryButton}"
+                            Command="{Binding GenerateCommand}" Margin="10,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- KPI row -->
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="TODAY'S SALES" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="{Binding Stats.TodaySales, StringFormat=C}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource SuccessBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="MONTH REVENUE" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="{Binding Stats.MonthSales, StringFormat=C}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="TOTAL PRODUCTS" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="{Binding Stats.TotalProducts}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="LOW STOCK" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="{Binding Stats.LowStockCount}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource DangerBrush}"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Two column: Top Products + Daily Sales list -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="14"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Top Products -->
+                <Border Grid.Column="0" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="🏆  Top Selling Products" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}" Margin="0,0,0,12"/>
+                        <DataGrid ItemsSource="{Binding TopProducts}" IsReadOnly="True"
+                                  AutoGenerateColumns="False" MaxHeight="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Product" Binding="{Binding Item1}" Width="*"/>
+                                <DataGridTextColumn Header="Revenue" Binding="{Binding Item2, StringFormat=C}" Width="110"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Daily Sales -->
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="📅  Daily Sales" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}" Margin="0,0,0,12"/>
+                        <DataGrid ItemsSource="{Binding DailySales}" IsReadOnly="True"
+                                  AutoGenerateColumns="False" MaxHeight="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Date"  Binding="{Binding Item1}" Width="*"/>
+                                <DataGridTextColumn Header="Sales" Binding="{Binding Item2, StringFormat=C}" Width="110"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Low Stock -->
+            <Border Style="{StaticResource Card}" Margin="0,16,0,0">
+                <StackPanel>
+                    <TextBlock Text="⚠  Low Stock Products" FontSize="14" FontWeight="SemiBold"
+                               Foreground="{StaticResource DangerBrush}" Margin="0,0,0,12"/>
+                    <DataGrid ItemsSource="{Binding LowStockProducts}" IsReadOnly="True"
+                              AutoGenerateColumns="False" MaxHeight="220">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Product"  Binding="{Binding Name}"         Width="*"/>
+                            <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" Width="120"/>
+                            <DataGridTextColumn Header="Stock"    Binding="{Binding Stock}"        Width="80"/>
+                            <DataGridTextColumn Header="Min"      Binding="{Binding MinStock}"     Width="80"/>
+                            <DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}" Width="140"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

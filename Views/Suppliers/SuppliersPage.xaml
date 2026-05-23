@@ -1,0 +1,63 @@
+<Page x:Class="SupermarketMS.Views.Suppliers.SuppliersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Suppliers" Background="{StaticResource SurfaceBrush}">
+
+    <Grid Margin="24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,16">
+            <TextBlock Text="Suppliers" FontSize="22" FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center"/>
+            <TextBox Margin="Auto,0,0,0" Width="200"
+                     Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                     Tag="Search suppliers…"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,14,0">
+            <DataGrid ItemsSource="{Binding Suppliers}" SelectedItem="{Binding Selected}" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name"    Binding="{Binding Name}"    Width="*"/>
+                    <DataGridTextColumn Header="Contact" Binding="{Binding Contact}" Width="130"/>
+                    <DataGridTextColumn Header="Phone"   Binding="{Binding Phone}"   Width="110"/>
+                    <DataGridTextColumn Header="Email"   Binding="{Binding Email}"   Width="160"/>
+                    <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="160"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="Supplier Details" FontSize="15" FontWeight="Bold"
+                           Foreground="{StaticResource TextPrimary}" Margin="0,0,0,12"/>
+                <TextBlock Text="COMPANY NAME *" Style="{StaticResource FieldLabel}"/>
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="CONTACT PERSON" Style="{StaticResource FieldLabel}"/>
+                <TextBox Text="{Binding Contact, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="PHONE" Style="{StaticResource FieldLabel}"/>
+                <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="EMAIL" Style="{StaticResource FieldLabel}"/>
+                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="ADDRESS" Style="{StaticResource FieldLabel}"/>
+                <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                         Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                    <Button Content="Clear" Style="{StaticResource PrimaryButton}"
+                            Background="#8EA9C8" Command="{Binding ClearCommand}" Margin="0,0,8,0"/>
+                    <Button Content="Delete" Style="{StaticResource DangerButton}"
+                            Command="{Binding DeleteCommand}" Margin="0,0,8,0"/>
+                    <Button Content="💾 Save" Style="{StaticResource AccentButton}"
+                            Command="{Binding SaveCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Page>

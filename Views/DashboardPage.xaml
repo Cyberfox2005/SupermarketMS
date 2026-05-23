@@ -1,0 +1,82 @@
+<Page x:Class="SupermarketMS.Views.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Dashboard" Background="{StaticResource SurfaceBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="28,24,28,28">
+
+            <!-- Header -->
+            <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimary}" Margin="0,0,0,4"/>
+            <TextBlock x:Name="TxtDate" FontSize="13" Foreground="{StaticResource TextSecondary}"
+                       Margin="0,0,0,24"/>
+
+            <!-- KPI Cards Row -->
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+
+                <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="TODAY'S SALES" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock x:Name="TxtTodaySales" Text="$0.00" FontSize="26"
+                                   FontWeight="Bold" Foreground="{StaticResource SuccessBrush}"/>
+                        <TextBlock x:Name="TxtTodayTx" Text="0 transactions"
+                                   FontSize="12" Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="MONTHLY REVENUE" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock x:Name="TxtMonthSales" Text="$0.00" FontSize="26"
+                                   FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                        <TextBlock Text="This month" FontSize="12"
+                                   Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="LOW STOCK ALERTS" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock x:Name="TxtLowStock" Text="0" FontSize="26"
+                                   FontWeight="Bold" Foreground="{StaticResource DangerBrush}"/>
+                        <TextBlock Text="Products need restock" FontSize="12"
+                                   Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="TOTAL PRODUCTS" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock x:Name="TxtTotalProducts" Text="0" FontSize="26"
+                                   FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                        <TextBlock x:Name="TxtEmpSup" Text="0 staff · 0 suppliers" FontSize="12"
+                                   Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Low Stock Table -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="⚠  Low Stock Products" FontSize="15" FontWeight="SemiBold"
+                               Foreground="{StaticResource DangerBrush}" Margin="0,0,0,12"/>
+                    <DataGrid x:Name="LowStockGrid" MaxHeight="240"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Product"  Binding="{Binding Name}"         Width="*"/>
+                            <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" Width="120"/>
+                            <DataGridTextColumn Header="Stock"    Binding="{Binding Stock}"        Width="80"/>
+                            <DataGridTextColumn Header="Min Stock"Binding="{Binding MinStock}"     Width="80"/>
+                            <DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}" Width="140"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock x:Name="TxtNoLow" Text="✅  All products are well stocked"
+                               FontSize="13" Foreground="{StaticResource SuccessBrush}"
+                               HorizontalAlignment="Center" Margin="0,12" Visibility="Collapsed"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,97 @@
+<Window x:Class="SupermarketMS.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SuperMarket Management System"
+        Height="780" Width="1280"
+        MinHeight="600" MinWidth="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SurfaceBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ══ SIDEBAR ══════════════════════════════════════════════════════ -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}">
+            <DockPanel>
+
+                <!-- Logo / Brand -->
+                <Border DockPanel.Dock="Top" Padding="20,24,20,16"
+                        BorderBrush="#1F3D60" BorderThickness="0,0,0,1">
+                    <StackPanel>
+                        <TextBlock Text="🛒" FontSize="30" HorizontalAlignment="Center"/>
+                        <TextBlock Text="SuperMarket" FontSize="16" FontWeight="Bold"
+                                   Foreground="White" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        <TextBlock Text="Management System" FontSize="10"
+                                   Foreground="#8EA9C8" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Nav Buttons -->
+                <StackPanel DockPanel.Dock="Top" Margin="12,16,12,0">
+                    <Button x:Name="BtnDashboard" Content="📊  Dashboard"
+                            Style="{StaticResource NavButton}" Click="NavBtn_Click" Tag="Dashboard"/>
+                    <Button x:Name="BtnProducts" Content="📦  Products"
+                            Style="{StaticResource NavButton}" Click="NavBtn_Click" Tag="Products"/>
+                    <Button x:Name="BtnSales" Content="🛒  Point of Sale"
+                            Style="{StaticResource NavButton}" Click="NavBtn_Click" Tag="Sales"/>
+                    <Button x:Name="BtnSuppliers" Content="🏭  Suppliers"
+                            Style="{StaticResource NavButton}" Click="NavBtn_Click" Tag="Suppliers"/>
+                    <Button x:Name="BtnEmployees" Content="👤  Employees"
+                            Style="{StaticResource NavButton}" Click="NavBtn_Click" Tag="Employees"/>
+                    <Button x:Name="BtnReports" Content="📈  Reports"
+                            Style="{StaticResource NavButton}" Click="NavBtn_Click" Tag="Reports"/>
+                </StackPanel>
+
+                <!-- Bottom info -->
+                <Border DockPanel.Dock="Bottom" Padding="16,12"
+                        BorderBrush="#1F3D60" BorderThickness="0,1,0,0">
+                    <StackPanel>
+                        <TextBlock Text="v1.0.0" FontSize="11" Foreground="#5A7898"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="TxtClock" FontSize="12" Foreground="#8EA9C8"
+                                   HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+            </DockPanel>
+        </Border>
+
+        <!-- ══ MAIN CONTENT ════════════════════════════════════════════════ -->
+        <Frame x:Name="MainFrame" Grid.Column="1"
+               NavigationUIVisibility="Hidden"
+               Background="{StaticResource SurfaceBrush}"/>
+    </Grid>
+
+    <Window.Resources>
+        <Style x:Key="NavButton" TargetType="Button">
+            <Setter Property="Background"      Value="Transparent"/>
+            <Setter Property="Foreground"      Value="#A8C4E0"/>
+            <Setter Property="FontSize"        Value="13.5"/>
+            <Setter Property="FontWeight"      Value="Medium"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding"         Value="14,11"/>
+            <Setter Property="Margin"          Value="0,2"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#1F3D60"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+</Window>
